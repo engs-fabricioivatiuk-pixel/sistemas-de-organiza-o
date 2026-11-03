@@ -1,0 +1,35 @@
+#include <iostream> // inclui a biblioteca de entrada e saida
+using namespace std; 
+
+void selectionSort(int vetor[], int tamanho, int &comparar, int &trocas){ //cria a função
+int menor = 0; //variavel que guarda o menor valor
+int temp; //variavel auxiliar
+for(int i = 0; i  < tamanho - 1; i++){ //percorre o array 
+menor = i; //define o primeiro valor do vetor como menor
+for(int j = i + 1 ; j < tamanho ; j++){ 
+comparar++; //conta o comparar
+if(vetor[j] < vetor[menor]){
+menor = j; // define o valor de menor
+  }
+}
+	temp = vetor[i]; //define a variavel auxiliar com o valor de i 
+	vetor[i] = vetor[menor]; // define a variavel i como menor
+	vetor[menor] = temp ; // define menor como a variavel guardada em temp
+	trocas++; //conta as trocas
+}
+}
+int main(){ //main principal
+    int vetor[5] = {8, 6, 2, 9, 3};//define os valores do vetor
+    int tamanho = 5;//define o tamanho do vetor
+    int comparar = 0; //quantidade de comparações
+int trocas = 0;//quantidade de trocas
+ selectionSort(vetor,tamanho,comparar,trocas); // chama a função
+ for(int i = 0; i < tamanho; i++){ //percorre o vetor já corrigido
+     cout << vetor[i] << " " << endl; //imprime os valores
+ }
+ cout << "Comparacoes: " << comparar << endl;// exibe a quantidade de comparaçoes
+ cout << "Trocas: " << trocas;// exibe as trocas
+}
+
+
+
