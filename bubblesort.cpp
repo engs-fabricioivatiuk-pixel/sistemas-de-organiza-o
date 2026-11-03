@@ -1,29 +1,63 @@
-#include <iostream>
-using namespace std;
+#include <iostream> //Inclui a biblioteca de entrada e saída padrão;
+using namespace std; // Permite que utlizemos o cout e cin sem precisar escrever std::cout e std::cin;
 
-int main(){
-    int trocas = 0;
-    int vetor[5] = {9, 7, 6, 2, 8}; //array inicial
-    int tamanho = 5; //tamanho do array
-    int temp = 0; // variavel auxiliar
-    int comparar = 0; // quantidade de comparaçoes
-    for(int i = 0; i < tamanho; i++){ //percorre o array
-        for(int j = 0; j < tamanho - 1; j++){ // compara os elementos do array
-             comparar++; // adiciona +1 na variavel comparação cada vez que entrar no if
-            if(vetor[j] > vetor [j + 1]){
-                 temp = vetor[j]; // guarda o valor atual
-                vetor[j] = vetor[j + 1]; // realiza a troca
-                vetor[j + 1] = temp; // recupera o valor guardado
-                trocas++;
-            }
 
-        }
-    }
-    for(int n = 0; n < tamanho; n++){ // percorre o array ja corrigido
-        cout << vetor[n] << " ";
-    }
+void bubbleSort(int arr[], int n){ // cria um função chamada bubbleSort que recebe um vetor e seu tamanho como parâmetros;
+    int aux = 0, trocas = 0, comparacoes = 0; // Declaração de variáveis auxiliares para auxiliar na ordenação e contagem de trocas e comparações;
 
-    cout << "a quantidade de comparações foram " << comparar << endl; // exibe a quantidade de comparaçoes feitas
-    cout << "a quantidade de trocas foram " << trocas; //exibe a quantidade de trocas
 
-}
+    for (int i = 0; i < n - 1; i++){ // For externo que percorre o vetor n vezes;
+        for (int j = 0; j < n - 1 - i; j ++){ // For interno que percorre o vetor n - 1 - i (pois a cada iteração do for externo, o maior elemento é colocado na última posição);
+            comparacoes++; // Incrementa a variável comparacoes a cada comparação realizada;
+            if (arr[j] > arr[j+1]){ // Se o elemento atual for maior que o próximo elemento, realiza a troca;
+            aux = arr[j]; //A variável aux recebe o valor do elemento atual, se a condição for verdadeira;
+            arr[j] = arr[j +1]; // O elemento atual recebe o valor do próximo elemento;
+            arr[j+1] = aux; // O próximo elemento recebe o valor da variável aux, que é o valor do elemento atual;
+            trocas++; // Incrementa a variável trocas a cada troca realizada;
+            } // Fim do if;
+        } // Fim do for interno;
+    } // Fim do for externo;
+
+
+    cout << "O numero de comparações realizadas foi: " << comparacoes << endl; // Imprime o número de comparações realizadas;
+    cout << "O numero de trocas realizadas foi: " << trocas << endl; // Imprime o número de trocas realizadas;
+} // Fim da função;
+
+
+int main (){ // Função principal do programa;
+    int n; //Variavel que armazena o tamanho do vetor;
+   
+    cout << "Digite o tamanho do array: "; // Solicita ao usuário que digite o tamanho do array;
+    cin >> n; // Lê o tamanho do array digitado pelo usuário;
+
+
+    if(n <= 0){ // Verifica se o tamanho do array é menor ou igual a zero;
+        cout << "Tamanho do array inválido. O programa será encerrado." << endl; // Imprime uma mensagem de erro caso o tamanho do array seja inválido;
+        return 0; // Retorna 0 para indicar que o programa foi encerrado;
+    } // Fim do if;
+   
+    int* arr = new int[n]; //Cria um vetor com alocação dinâmica de memória, com tamanho digitado pelo usuário;
+    cout << "Digite os elementos do vetor: "; // Solicita ao usuário que digite os elementos do array;
+    for (int i = 0; i < n; i++){ // For que percorre o Array e armazena os elementos digitados pelo usuário;
+        cin >> arr[i]; // Lê os elementos digitados pelo usuário e armazena no array;
+    } // Fim do for;
+
+
+    bubbleSort(arr, n); // Chama a função , passando o array e seu tamanho como parâmetros;
+
+
+    cout << "Array ordenado: "; // Imprime a mensagem "Array ordenado: " para indicar que o array será exibido em ordem crescente;
+    for (int i = 0; i < n; i++){ // For que percorre o array e imprime os elementos em ordem crescente;
+        cout << arr[i] << " "; // Imprime os elementos do array em ordem crescente, separados por espaço;
+    } // Fim do for;
+
+
+    cout << endl; // Imprime uma quebra de linha para melhorar a formatação da saída;
+
+
+    delete[] arr; // Libera a memória alocada dinamicamente para o vetor;
+    arr = nullptr; // Define o ponteiro arr como nulo para evitar acesso a memória liberada;
+    return 0; // Retorna 0 para indicar que o programa foi executado com sucesso;
+
+
+} // Fim da função main;
